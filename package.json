@@ -4,10 +4,12 @@
   "description": "Bootstrap template for Orkha BFF (Backend-for-Frontend) APIs. Fastify + TypeScript proxy to upstream services. No domain database.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.build.json",
     "start": "node --env-file=.env dist/index.js",
     "dev": "tsx watch --env-file=.env src/index.ts",
-    "test": "tap --ts --no-coverage"
+    "test": "vitest",
+    "test:run": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
   "engines": {
     "node": ">=22"
@@ -22,13 +24,13 @@
     "@sinclair/typebox": "^0.34.49",
     "dotenv": "^17.4.2",
     "fastify": "^5.8.4",
-    "fastify-plugin": "^5.1.0"
+    "fastify-plugin": "^5.1.0",
+    "pino-pretty": "^13.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
-    "@types/tap": "^15.0.11",
-    "tap": "^21.6.3",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "vitest": "^2.1.8"
   }
 }

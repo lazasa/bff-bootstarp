@@ -29,17 +29,22 @@ pnpm test             # tap test suite
 3. `src/config/appConfig.ts`: add config entries for new upstreams.
 4. `src/services/`: add one HTTP client file per upstream service. Never
    wrap a single upstream with multiple per-domain clients.
-5. `src/api/users/` is the example resource — replace it with your own
-   resources. Each resource folder has 4 files: `routes`, `schemas`,
-   `docs`, `types`.
+5. Add your resources under `src/api/<resource>/`. Each resource folder
+   has 4 files: `routes`, `schemas`, `docs`, `types`.
 6. `src/routes.ts`: register your resources at their prefixes.
 7. `src/plugins/swagger.ts`: replace title, description, tags.
 8. `.github/workflows/deploy-staging.yml`: set `SERVICE_NAME`.
+9. `STARTER_APP_VERSION`: bump if forking this bootstrap for a new template
+   variant. Leave as-is when cloning for a new BFF.
 
 ## Read this before writing code
 
-- [`CLAUDE.md`](./CLAUDE.md) captures the architectural rules: plugin order,
-  no-database, single client per upstream, error contract, AJV config.
+- [`CLAUDE.md`](./CLAUDE.md) — architectural rules: plugin order, no-database,
+  single client per upstream, error contract, AJV config, schema `$id` discipline.
+- [`docs/api.md`](./docs/api.md) — conventions, resource pattern, configuration.
+- [`docs/architecture.md`](./docs/architecture.md) — directory layout, adding an upstream.
+- [`docs/test.md`](./docs/test.md) — test strategy and layers.
+- [`docs/decisions/`](./docs/decisions/) — ADRs for key architectural decisions.
 
 ## Health & docs
 

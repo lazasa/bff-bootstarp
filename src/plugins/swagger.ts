@@ -1,3 +1,5 @@
+import { ErrorResponseSchema } from '../utils/errors'
+
 // TODO: replace title/description for your BFF.
 export const swaggerOptions = {
   openapi: {
@@ -14,22 +16,11 @@ export const swaggerOptions = {
           process.env.NODE_ENV === 'production' ? 'Production' : 'Development'
       }
     ],
-    tags: [{ name: 'Users', description: 'Example users proxy resource' }],
+    tags: [],
     components: {
       schemas: {
-        Error: {
-          type: 'object' as const,
-          properties: {
-            error: {
-              type: 'object' as const,
-              properties: {
-                code: { type: 'string' as const },
-                message: { type: 'string' as const },
-                status: { type: 'number' as const }
-              }
-            }
-          }
-        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        ErrorResponse: (({ $id, ...rest }) => rest)(ErrorResponseSchema) as any
       }
     }
   }

@@ -17,9 +17,14 @@ const TIMEOUT = config.IDENTITY_SERVICE_TIMEOUT
 async function request(
   method: string,
   path: string,
-  options: { body?: unknown; authorization?: string; queryString?: string } = {}
+  options: {
+    body?: unknown
+    authorization?: string
+    queryString?: string
+    reqId?: string
+  } = {}
 ): Promise<unknown> {
-  const { body, authorization, queryString } = options
+  const { body, authorization, queryString, reqId } = options
 
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), TIMEOUT)
@@ -28,7 +33,8 @@ async function request(
 
   const headers: Record<string, string> = {
     ...(body !== undefined ? { 'content-type': 'application/json' } : {}),
-    ...(authorization ? { authorization } : {})
+    ...(authorization ? { authorization } : {}),
+    ...(reqId ? { 'x-request-id': reqId } : {})
   }
 
   try {
@@ -84,26 +90,33 @@ async function request(
 export const identityServiceGet = (
   path: string,
   authorization?: string,
-  queryString?: string
-) => request('GET', path, { authorization, queryString })
+  queryString?: string,
+  reqId?: string
+) => request('GET', path, { authorization, queryString, reqId })
 
 export const identityServicePost = (
   path: string,
   body?: unknown,
-  authorization?: string
-) => request('POST', path, { body, authorization })
+  authorization?: string,
+  reqId?: string
+) => request('POST', path, { body, authorization, reqId })
 
 export const identityServicePatch = (
   path: string,
   body: unknown,
-  authorization?: string
-) => request('PATCH', path, { body, authorization })
+  authorization?: string,
+  reqId?: string
+) => request('PATCH', path, { body, authorization, reqId })
 
 export const identityServicePut = (
   path: string,
   body: unknown,
-  authorization?: string
-) => request('PUT', path, { body, authorization })
+  authorization?: string,
+  reqId?: string
+) => request('PUT', path, { body, authorization, reqId })
 
-export const identityServiceDelete = (path: string, authorization?: string) =>
-  request('DELETE', path, { authorization })
+export const identityServiceDelete = (
+  path: string,
+  authorization?: string,
+  reqId?: string
+) => request('DELETE', path, { authorization, reqId })

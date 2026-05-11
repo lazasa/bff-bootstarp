@@ -1,3 +1,42 @@
+export const ErrorResponseSchema = {
+  $id: 'ErrorResponse',
+  type: 'object',
+  additionalProperties: false,
+  required: ['error'],
+  properties: {
+    error: {
+      type: 'object',
+      required: ['code', 'message', 'status'],
+      properties: {
+        code: { type: 'string' },
+        message: { type: 'string' },
+        status: { type: 'integer' },
+        details: {
+          type: 'array',
+          items: {
+            type: 'object',
+            required: ['field', 'issue'],
+            additionalProperties: true,
+            properties: {
+              field: { type: 'string' },
+              issue: { type: 'string' },
+            },
+          },
+        },
+      },
+    },
+  },
+}
+
+export type ErrorResponse = {
+  error: {
+    code: string
+    message: string
+    status: number
+    details?: Array<{ field: string; issue: string; [key: string]: unknown }>
+  }
+}
+
 export interface ErrorDetail {
   field: string
   issue: string
