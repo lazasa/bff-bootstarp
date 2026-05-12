@@ -17,7 +17,15 @@ export const swaggerOptions = {
       }
     ],
     tags: [],
+    security: [{ BearerAuth: [] }],
     components: {
+      securitySchemes: {
+        BearerAuth: {
+          type: 'http' as const,
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+        }
+      },
       schemas: {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         ErrorResponse: (({ $id, ...rest }) => rest)(ErrorResponseSchema) as any
